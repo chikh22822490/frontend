@@ -1,0 +1,112 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: url('../assets/doc1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+}
+   .image{
+        margin: auto;
+        max-width: 55%;
+    }
+    .box{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    }
+    .box h2{
+    margin: 0 0 30px;
+    padding: 0px;
+    color: #fff;
+    text-align: center;
+    }
+    .box .input-box{
+    position: relative;
+    }
+    .box .input-box input{
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 1px solid #fff;
+    }
+    .box .input-box label{
+    position: absolute;
+    top: 0;
+    left: 0;
+    letter-spacing: 1px;
+    padding: 10px 0px;
+    font-size: 16px;
+    color: #fff;
+    transition: .5s;
+    }
+    .box .input-box input:focus ~ label,
+    .box .input-box input:valid ~ label{
+    top: -18px;
+    left: 0px;
+    color: #5896b3;
+    font-size: 12px;
+    }
+    .box .check-box label {
+    position: relative;
+    top: 0;
+    left: 0;
+    letter-spacing: 1px;
+    font-size: 16px;
+    color: #fff;
+    transition: .5s;
+    }
+    .box input[type="submit"]{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #8d1124;
+    padding: 10px 30px;
+    font-size: 100%;
+    margin: 0px 80px;
+    border-radius: 10px;
+    cursor: pointer;
+    }
+    .box input[type="reset"]{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #8d1124;
+    padding: 10px 30px;
+    font-size: 100%;
+    margin: 10px 85px;
+    border-radius: 10px;
+    cursor: pointer;
+    }
+   
+    .box input[type=submit]:hover{
+    background-color: #343c7c;
+    }
+     .box input[type=reset]:hover{
+    background-color: #343c7c;
+    }
+   
+   .box a {
+       color : white;
+       top: 10px;
+   }
+   .box a:hover {
+       color: #5896b3;
+   }
+   
