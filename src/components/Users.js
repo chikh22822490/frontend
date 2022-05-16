@@ -51,7 +51,7 @@ class Users extends Component {
 
                 <div style={{ float: "right", marginBottom: "10px" }}>
                     <Router history={history}>
-                        <Link to="/Depot">
+                        <Link to="/AddUser">
                             <img
                                 style={{ width: "25px", cursor: "pointer" }}
                                 src="https://img.icons8.com/color/48/000000/plus-math.png"

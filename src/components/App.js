@@ -8,6 +8,7 @@ import Login from './Login'
 import Dashboard from './Dashboard';
 import DepotDoc from './DepotDoc';
 import Users from './Users';
+import AddUser from './AddUser';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class App extends React.Component {
           <Route path="/Dashboard" exact component={() => <Dashboard />}/>
           <Route path="/Depot" exact component={() => <DepotDoc />}/>
           <Route path="/Users" exact component={() => <Users />}/>
+          <Route path="/AddUser" exact component={() => <AddUser />}/>
         </Router>
       </div>
     )

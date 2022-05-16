@@ -70,7 +70,7 @@ class AddUser extends Component {
 
     // fetch fonction goes here
     
-
+    alert("Ajouté");
     window.location = "/Users";
   }
 
@@ -117,7 +117,7 @@ class AddUser extends Component {
           <div className="form-group">
             <label>Image de l'utilisateur</label>
             <input
-              type="email"
+              type="url"
               required
               className="form-control"
               placeholder="URL de l'image de l'utilisateur"
