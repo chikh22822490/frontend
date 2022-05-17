@@ -16,11 +16,6 @@ function DocumentUpdate(props) {
     setIsOpen(true);
   };
 
-  const onRadioChange = (e) => {
-    setStatut(e.target.value);
-    setIsChanged(true)
-  };
-
   const statutUpdate = async () => {
     //fetch goes here
 
@@ -32,42 +27,26 @@ function DocumentUpdate(props) {
 
   document.push(
     <div key={0}>
-      {/* <input type="radio" value="Male" name="gender" /> Male */}
       <Radio
         name="statut"
         key={0}
-        label={"En attente"}
+        label={"Signé"}
         my={2}
-        value={"waiting"}
-        onChange={onRadioChange}
+        value={"signed"}
+        onClick={()=>{setStatut('signed');console.log("click " + statut)}}
       />
     </div>
   );
 
   document.push(
     <div key={1}>
-      {/* <input type="radio" value="Male" name="gender" /> Male */}
       <Radio
         name="statut"
         key={1}
-        label={"Signé"}
-        my={2}
-        value={"signed"}
-        onChange={onRadioChange}
-      />
-    </div>
-  );
-
-  document.push(
-    <div key={2}>
-      {/* <input type="radio" value="Male" name="gender" /> Male */}
-      <Radio
-        name="statut"
-        key={2}
         label={"Réfusé"}
         my={2}
         value={"refused"}
-        onChange={onRadioChange}
+        onClick={()=>{setStatut('refused');setIsChanged(true)}}
       />
     </div>
   );
@@ -75,7 +54,7 @@ function DocumentUpdate(props) {
   return (
     <Box className="App" p={0}>
       <Box>
-        <button className="btn btn-primary" onClick={openModal}>Editer</button>
+        <button className="btn" style={{background:"#FA897B"}} onClick={openModal}>Editer</button>
 
         <Modal isOpen={isOpen}>
           <Card width={"420px"} p={0}>
@@ -97,6 +76,19 @@ function DocumentUpdate(props) {
 
             <Box p={4} mb={3}>
               Sélectionnez un statut {document}
+
+              {statut === 'signed' ? (<div>
+                <fieldset className="row mb-3">
+                  <div className="row mb-3">
+                    <label className="col col-form-label">Séléctionner un fichier</label>
+                    <div>
+                      <input type="file" className="form-control" required onChange={()=>{setIsChanged(true)}} />
+                    </div>
+                  </div>
+                </fieldset>
+              </div>) : (
+                <div></div>
+              )}
             </Box>
             <Flex
               px={4}
@@ -116,7 +108,7 @@ function DocumentUpdate(props) {
               </div>) : (
                 <Button.Outline
                   onClick={() => {
-                    alert("Aucun statut est séléctionné");
+                    alert("Statut ou fichier manquant");
                   }}
                 >
                   Editer

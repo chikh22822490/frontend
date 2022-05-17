@@ -49,7 +49,6 @@ class Dashboard extends Component {
                     document={documentDetails[i]}
                 />
             );
-            console.log("name : " + documentDetails[i].name)
         }
         this.setState({ data: documentComponents, loading: false })
     }
@@ -79,15 +78,16 @@ class Dashboard extends Component {
                 <table className="table table-hover">
                     <thead>
                         <tr style={{ width: "100%", height: "auto", textAlign: "center" }}>
-                            <th colSpan={6}>Listes des documents</th>
+                            <th colSpan={7}>Listes des documents</th>
                         </tr>
                         <tr>
                             <th style={{ width: "15%", textAlign: "left" }}>Titre</th>
-                            <th style={{ width: "45%", textAlign: "left" }}>Description du document</th>
+                            <th style={{ width: "40%", textAlign: "left" }}>Description du document</th>
                             <th style={{ width: "20%", textAlign: "left" }}>Proprietaire</th>
                             <th style={{ width: "10%", textAlign: "center" }}>Categorie</th>
                             <th style={{ width: "5%", textAlign: "center" }}>Statut</th>
                             <th style={{ width: "5%", textAlign: "center" }}>Editer</th>
+                            <th style={{ width: "5%", textAlign: "center" }}>Télécharger</th>
                         </tr>
                     </thead>
 

@@ -10,6 +10,9 @@ import DepotDoc from './DepotDoc';
 import Users from './Users';
 import AddUser from './AddUser';
 import Banner from './NavBar';
+import DocumentUtils from './DocumentUtils';
+import AddDocumentUtil from './AddDocumentUtil';
+import DocumentsUsers from './DocumentsUsers';
 
 class App extends React.Component {
   constructor(props) {
@@ -44,6 +47,9 @@ class App extends React.Component {
           <Route path="/Depot" exact component={() => <DepotDoc />}/>
           <Route path="/Users" exact component={() => <Users />}/>
           <Route path="/AddUser" exact component={() => <AddUser />}/>
+          <Route path="/Downloads" exact component={() => <DocumentUtils />}/>
+          <Route path="/AddDocumentUtil" exact component={() => <AddDocumentUtil />}/>
+          <Route path="/DocumentsUsers" exact component={() => <DocumentsUsers />}/>
         </Router>
       </div>
     )
