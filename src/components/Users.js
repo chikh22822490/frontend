@@ -62,15 +62,6 @@ class Users extends Component {
                         src="https://img.icons8.com/color/50/000000/synchronize.png"
                         alt="refresh projects"
                     />
-                    <Router history={history}>
-                        <Link to="/AddUser">
-                            <img
-                                style={{ width: "25px", cursor: "pointer" }}
-                                src="https://img.icons8.com/color/48/000000/plus-math.png"
-                                alt="Add Project"
-                            />
-                        </Link>
-                    </Router>
                 </div>
 
                 <table className="table table-hover">

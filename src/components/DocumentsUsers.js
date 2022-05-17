@@ -49,7 +49,6 @@ class DocumentsUsers extends Component {
                     document={documentDetails[i]}
                 />
             );
-            console.log("name : " + documentDetails[i].name)
         }
         this.setState({ data: documentComponents, loading: false })
     }
@@ -85,7 +84,7 @@ class DocumentsUsers extends Component {
                 <table className="table table-hover">
                     <thead>
                         <tr style={{ width: "100%", height: "auto", textAlign: "center" }}>
-                            <th colSpan={5}>Listes des documents utils</th>
+                            <th colSpan={5}>Listes des documents de l'utilisateur</th>
                         </tr>
                         <tr>
                             <th style={{ width: "20%", textAlign: "left" }}>Titre</th>

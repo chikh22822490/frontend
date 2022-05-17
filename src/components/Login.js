@@ -54,24 +54,23 @@ class Login extends Component {
 
     render(){
         return (
-            <div className='container' style={{ display: "flex", justifyContent: "center" }}>
-                <div className="card" style={{ width: "35%", padding: "5%" }}>
+            <div className='container' style={{ display: "flex", justifyContent: "center", position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+                <div className="card" style={{ width: "40%", padding: "5%" }}>
                     <img src={Logo} alt="logo" />
-                    <form onSubmit={(e)=>{ this.onSubmit(e)}}>
+                    <form onSubmit={(e)=>{ this.onSubmit(e)}} style={{marginTop:"10%"}}>
                         <div className="mb-3">
-                            <label className="form-label" style={{ fontSize: "1.5rem" }}>Username</label>
-                            <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required onChange={(e)=>this.onChangeUsername(e)}/>
+                            <label className="form-label" style={{ fontSize: "1.5rem" }}>Email</label>
+                            <input type="text" className="form-control" placeholder='Votre adress mail' required onChange={(e)=>this.onChangeUsername(e)}/>
                         </div>
                         <div className="mb-3">
-                            <label className="form-label" style={{ fontSize: "1.5rem" }}>Password</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" onChange={(e)=>this.onChangePassword(e)}/>
+                            <label className="form-label" style={{ fontSize: "1.5rem" }}>Mot de passe</label>
+                            <input type="password" className="form-control" placeholder='Votre mot de passe' onChange={(e)=>this.onChangePassword(e)}/>
                         </div>
-                        <div className="mb-3 form-check">
-                            <input type="checkbox" className="form-check-input" id="exampleCheck1" required />
-                            <label className="form-check-label">Remember me</label>
+                        <div className="mb-3" style={{ display: "flex", justifyContent: "center", marginTop:"10%" }}>
+                            <button type="submit" className="btn btn-lg btn-primary" >Connexion</button>
                         </div>
-                        <div style={{ display: "flex", justifyContent: "center" }}>
-                            <button type="submit" className="btn btn-primary" >Connexion</button>
+                        <div className="mb-3">
+                            <span style={{ fontSize: "1.5rem" }}>Vous n'avez pas de compte? <a href='/AddUser'>S'inscrire ici</a></span>
                         </div>
                     </form>
                 </div>
