@@ -14,7 +14,6 @@ function Banner() {
 						<img src={Logo} alt="TenStep" className="banner-logo" />
 					</Link>
 				</Router>
-
 			</div>
 
 			{/* <form className="d-flex">
