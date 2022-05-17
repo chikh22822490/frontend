@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
+import DocumentUpdate from './DocumentUpdate'
 
 function DocumentRow(props) {
 
     const statut = props.document.statut
+    const docId = props.document.id
 
     return (
         <tr>
@@ -17,7 +19,7 @@ function DocumentRow(props) {
             <td>
                 <h6 id='candidateTitle'>{props.document.sender}</h6>
             </td>
-            <td>
+            <td style={{ width: "20%", textAlign: "center" }}>
                 <h6 id='candidateTitle'>{props.document.type}</h6>
             </td>
             <td style={{color:"white"}}>
@@ -42,6 +44,9 @@ function DocumentRow(props) {
                             </font>
                         </div>)}
                     </div>)}
+            </td>
+            <td>
+                <DocumentUpdate docId={docId} statut={statut}/>
             </td>
         </tr>
     )

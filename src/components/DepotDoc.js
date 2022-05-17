@@ -1,45 +1,61 @@
 import React from 'react'
 
 function DepotDoc() {
+
+    // const [nom, setNom]
+
     return (
         <div className='container' style={{ width: "40%" }}>
             <form>
                 <div className="row mb-3">
-                    <label for="nom" className="col-sm-2 col-form-label">Nom</label>
+                    <label className="col-sm-2 col-form-label">Nom</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" id="nom" />
+                        <input type="text" className="form-control" placeholder="Nom de l'utilisateur" required/>
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label for="prenom" className="col-sm-2 col-form-label">Prenom</label>
+                    <label className="col-sm-2 col-form-label">Prenom</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" id="prenom" />
+                        <input type="text" className="form-control" placeholder="Prenom de l'utilisateur" required/>
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label for="email" className="col-sm-2 col-form-label">Email</label>
+                    <label className="col-sm-2 col-form-label">Email</label>
                     <div className="col-sm-10">
-                        <input type="email" className="form-control" id="email" />
+                        <input type="email" className="form-control" placeholder="Email de l'utilisateur" required/>
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <label className="col-sm-2 col-form-label">Description</label>
+                    <div className="col-sm-10">
+                        <textarea
+                        type="text"
+                        required
+                        maxLength={250}
+                        className="form-control"
+                        placeholder="Description du document (max 250 caractères)"
+                        // onChange={onChangeDescription}
+                        />
                     </div>
                 </div>
                 <fieldset className="row mb-3">
                     <label className="col-form-label col-sm-2 pt-0">Radios</label>
                     <div className="col-sm-10">
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked />
-                            <label className="form-check-label" for="gridRadios1">
+                            <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"/>
+                            <label className="form-check-label">
                                 First radio
                             </label>
                         </div>
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
-                            <label className="form-check-label" for="gridRadios2">
+                            <label className="form-check-label" >
                                 Second radio
                             </label>
                         </div>
                         <div className="form-check disabled">
-                            <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled />
-                            <label className="form-check-label" for="gridRadios3">
+                            <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" />
+                            <label className="form-check-label">
                                 Third disabled radio
                             </label>
                         </div>
@@ -47,9 +63,9 @@ function DepotDoc() {
                 </fieldset>
                 <fieldset className="row mb-3">
                     <div className="row mb-3">
-                        <label for="file" className="col col-form-label">Selectionner un fichier</label>
+                        <label className="col col-form-label">Séléctionner un fichier</label>
                         <div>
-                            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
+                            <input type="file" className="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
                         </div>
                     </div>
                 </fieldset>

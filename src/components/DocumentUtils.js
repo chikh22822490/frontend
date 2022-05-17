@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Router } from 'react-router-dom';
 import { Loader } from "rimble-ui";
-import UserRow from './UserRow';
+import DocumentUtilsRow from './DocumentUtilsRow';
 import history from '../history'
 
-let User = (props) => (
-    <UserRow user={props.user} />
+let Document = (props) => (
+    <DocumentUtilsRow document={props.document} />
 );
 
-class Users extends Component {
+class DocumentUtils extends Component {
     constructor() {
         super();
         this.state = {
@@ -20,35 +20,38 @@ class Users extends Component {
 
     loader = false;
 
-    componentDidMount() {
+    componentDidMount(){
         this.init();
     }
 
-    async init() {
+    async init(){
         await this.loadData();
     }
 
     loadData = async () => {
         this.setState({ loading: true });
 
-        let allUsers = []
-        let userComponents = [], userDetails = []
+        let allDocuments = []
+        let documentComponents = [], documentDetails = []
 
         for (let i = 0; i < 5; i++) {
-            userDetails[i] = []
-            let user = allUsers[i]
-            userDetails[i].nom = "nom " + i//document[0];
-            userDetails[i].prenom = "prenom " + i// document[1]
-            userDetails[i].email = "exemple@mail.com " + i
+            documentDetails[i]=[]
+            let document = allDocuments[i]
+            documentDetails[i].name = "name " +i//document[0];
+            documentDetails[i].description = "description " +i// document[1]
+            documentDetails[i].sender = "exemple@mail.com " +i
+            documentDetails[i].type = "type "+i
+            documentDetails[i].statut = "En attente"//document[2]
 
-            userComponents[i] = (
-                <User
+            documentComponents[i] = (
+                <Document
                     key={i}
-                    user={userDetails[i]}
+                    document={documentDetails[i]}
                 />
             );
+            console.log("name : " + documentDetails[i].name)
         }
-        this.setState({ data: userComponents, loading: false, })
+        this.setState({ data: documentComponents, loading: false })
     }
 
     render() {
@@ -63,7 +66,7 @@ class Users extends Component {
                         alt="refresh projects"
                     />
                     <Router history={history}>
-                        <Link to="/AddUser">
+                        <Link to="/Depot">
                             <img
                                 style={{ width: "25px", cursor: "pointer" }}
                                 src="https://img.icons8.com/color/48/000000/plus-math.png"
@@ -75,19 +78,23 @@ class Users extends Component {
 
                 <table className="table table-hover">
                     <thead>
+                        <tr style={{ width: "100%", height: "auto", textAlign: "center" }}>
+                            <th colSpan={6}>Listes des documents</th>
+                        </tr>
                         <tr>
-                            <th style={{ width: "10%", textAlign: "left" }}>User image</th>
-                            <th style={{ width: "20%", textAlign: "left" }}>Nom</th>
-                            <th style={{ width: "20%", textAlign: "left" }}>Prenom</th>
-                            <th style={{ width: "30%", textAlign: "left" }}>E-mail</th>
-                            <th style={{ width: "20%", textAlign: "center" }}>Actions</th>
+                            <th style={{ width: "15%", textAlign: "left" }}>Titre</th>
+                            <th style={{ width: "45%", textAlign: "left" }}>Description du document</th>
+                            <th style={{ width: "20%", textAlign: "left" }}>Proprietaire</th>
+                            <th style={{ width: "10%", textAlign: "center" }}>Categorie</th>
+                            <th style={{ width: "5%", textAlign: "center" }}>Statut</th>
+                            <th style={{ width: "5%", textAlign: "center" }}>Editer</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {this.state.data}
                     </tbody>
-
+        
                 </table>
                 <center>{this.state.loading ? <Loader size="40px" /> : <></>}</center>
             </div>
@@ -95,4 +102,4 @@ class Users extends Component {
     }
 }
 
-export default Users
+export default DocumentUtils

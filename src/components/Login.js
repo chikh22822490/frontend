@@ -1,7 +1,5 @@
-import React, {Component, useState} from 'react'
-import { Link  ,  Router} from 'react-router-dom'; 
+import React, {Component} from 'react'
 import Logo from '../assets/tenstep-logo.png'
-import history from '../history';
 
 class Login extends Component {
     constructor(){

@@ -1,7 +1,7 @@
 import '../styles/App.css';
 import React from "react";
 
-import { Router, Route, Link, Redirect } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import history from '../history';
 
 import Login from './Login'
@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import DepotDoc from './DepotDoc';
 import Users from './Users';
 import AddUser from './AddUser';
+import Banner from './NavBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,16 +29,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
+
+        <Banner account={this.state.account}/>
+
         <Router history={history}>
           {/* Default route to ActiveElections component */}
           <Route path="/" exact>
             <Redirect to="/Login"/>
           </Route>
-
-          {/* Navbar */}
-          <nav className="navbar navbar-dark shadow" style={{backgroundColor: "#1b2021", height: "60px", color: "white", marginBottom: "50px"}}>
-            <Link to = "/Dashboard"><b style = {{cursor: "pointer", color: "white"}}>Dashboard</b></Link>
-          </nav>
 
           {/* Route to Active election page */}
           <Route path="/Login" exact component={() => <Login />}/>

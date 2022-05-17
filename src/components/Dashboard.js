@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { Router } from 'react-router-dom';
+import { Loader } from "rimble-ui";
 import DocumentRow from './DocumentRow';
 import history from '../history'
 
@@ -12,9 +13,12 @@ class Dashboard extends Component {
     constructor() {
         super();
         this.state = {
-            data: []
+            data: [],
+            loading: false,
         }
     }
+
+    loader = false;
 
     componentDidMount(){
         this.init();
@@ -25,6 +29,8 @@ class Dashboard extends Component {
     }
 
     loadData = async () => {
+        this.setState({ loading: true });
+
         let allDocuments = []
         let documentComponents = [], documentDetails = []
 
@@ -35,7 +41,7 @@ class Dashboard extends Component {
             documentDetails[i].description = "description " +i// document[1]
             documentDetails[i].sender = "exemple@mail.com " +i
             documentDetails[i].type = "type "+i
-            documentDetails[i].statut = "signed"//document[2]
+            documentDetails[i].statut = "En attente"//document[2]
 
             documentComponents[i] = (
                 <Document
@@ -45,7 +51,7 @@ class Dashboard extends Component {
             );
             console.log("name : " + documentDetails[i].name)
         }
-        this.setState({ data: documentComponents })
+        this.setState({ data: documentComponents, loading: false })
     }
 
     render() {
@@ -53,6 +59,12 @@ class Dashboard extends Component {
             <div className="container">
 
                 <div style={{ float: "right", marginBottom: "10px" }}>
+                    <img
+                        style={{ width: "25px", marginRight: "20px", cursor: "pointer" }}
+                        onClick={this.loadData}
+                        src="https://img.icons8.com/color/50/000000/synchronize.png"
+                        alt="refresh projects"
+                    />
                     <Router history={history}>
                         <Link to="/Depot">
                             <img
@@ -66,12 +78,16 @@ class Dashboard extends Component {
 
                 <table className="table table-hover">
                     <thead>
+                        <tr style={{ width: "100%", height: "auto", textAlign: "center" }}>
+                            <th colSpan={6}>Listes des documents</th>
+                        </tr>
                         <tr>
-                            <th style={{ width: "20%", textAlign: "left" }}>Nom du document</th>
-                            <th style={{ width: "30%", textAlign: "left" }}>Description du document</th>
-                            <th style={{ width: "30%", textAlign: "left" }}>Proprietaire</th>
-                            <th style={{ width: "20%", textAlign: "left" }}>Type du document</th>
-                            <th style={{ width: "10%", textAlign: "left" }}>Statut</th>
+                            <th style={{ width: "15%", textAlign: "left" }}>Titre</th>
+                            <th style={{ width: "45%", textAlign: "left" }}>Description du document</th>
+                            <th style={{ width: "20%", textAlign: "left" }}>Proprietaire</th>
+                            <th style={{ width: "10%", textAlign: "center" }}>Categorie</th>
+                            <th style={{ width: "5%", textAlign: "center" }}>Statut</th>
+                            <th style={{ width: "5%", textAlign: "center" }}>Editer</th>
                         </tr>
                     </thead>
 
@@ -80,6 +96,7 @@ class Dashboard extends Component {
                     </tbody>
         
                 </table>
+                <center>{this.state.loading ? <Loader size="40px" /> : <></>}</center>
             </div>
         )
     }
