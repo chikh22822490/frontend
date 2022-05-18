@@ -85,8 +85,8 @@ class AddUser extends Component {
 
   render() {
     return (
-      <div className="container" style={{ display: "flex", justifyContent: "center", position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-        <div className="card" style={{ width: "40%", padding: "5%" }}>
+      <div className="container" style={{ display: "flex", justifyContent: "center"}}>
+        <div className="card" style={{ width: "40%", paddingLeft:"5%", paddingRight:"5%", paddingTop:"5%", paddingBottom:"0%" }}>
           <img src={Logo} alt="logo" />
 
           {/* New user Form */}
