@@ -1,67 +1,31 @@
-import React, { useState} from 'react'
+import React from 'react'
 import UploadService from '../services/documentsService'
 
-function AddDocumentUtil() {
+function DepotDoc() {
 
-    const [selectedFiles, setSelectedFiles] = useState(undefined);
-    const [currentFile, setCurrentFile] = useState(undefined);
-    const [message, setMessage] = useState("");
-    const [fileInfos, setFileInfos] = useState([]);
-    const [descriprtion, setDescription] = useState("");
-    const [categorie, setCategorie] = useState("");
-
-    const selectFile = (event) => {
-        setSelectedFiles(event.target.files);
-    }
-
-    const onChangeDescription = (event) =>{
-        setDescription(event.target.value);
-    }
-
-    const onChangeCategorie = (event) => {
-        setCategorie(event.target.value);
-    }
-
-    const onSubmit = () =>{
-        let currentFile = selectedFiles[0];
-        setCurrentFile(currentFile);
-
-        UploadService.upload(currentFile, descriprtion, categorie)
-            .then((response) => {
-                setMessage(response.data.message);
-                return UploadService.getFiles();
-            })
-            .then((files) => {
-                setFileInfos(files.data);
-            })
-            .catch(() => {
-                setMessage("Could not upload the file!");
-                setCurrentFile(undefined);
-            });
-        setSelectedFiles(undefined);
-    }
+    // const [nom, setNom]
 
     return (
         <div className='container' style={{ width: "40%" }}>
-            <form onSubmit={onSubmit}>
-                {/* <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Description</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" placeholder="Nom de l'utilisateur" required onChange={onChangeDescription}/>
-                    </div>
-                </div> */}
+            <form>
                 <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Categorie</label>
+                    <label className="col-sm-2 col-form-label">Nom</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" placeholder="Prenom de l'utilisateur" required onChange={onChangeCategorie}/>
+                        <input type="text" className="form-control" placeholder="Nom de l'utilisateur" required/>
                     </div>
                 </div>
-                {/* <div className="row mb-3">
+                <div className="row mb-3">
+                    <label className="col-sm-2 col-form-label">Prenom</label>
+                    <div className="col-sm-10">
+                        <input type="text" className="form-control" placeholder="Prenom de l'utilisateur" required/>
+                    </div>
+                </div>
+                <div className="row mb-3">
                     <label className="col-sm-2 col-form-label">Email</label>
                     <div className="col-sm-10">
                         <input type="email" className="form-control" placeholder="Email de l'utilisateur" required/>
                     </div>
-                </div> */}
+                </div>
                 <div className="row mb-3">
                     <label className="col-sm-2 col-form-label">Description</label>
                     <div className="col-sm-10">
@@ -71,11 +35,11 @@ function AddDocumentUtil() {
                         maxLength={250}
                         className="form-control"
                         placeholder="Description du document (max 250 caractères)"
-                        onChange={onChangeDescription}
+                        // onChange={onChangeDescription}
                         />
                     </div>
                 </div>
-                {/* <fieldset className="row mb-3">
+                <fieldset className="row mb-3">
                     <label className="col-form-label col-sm-2 pt-0">Radios</label>
                     <div className="col-sm-10">
                         <div className="form-check">
@@ -97,12 +61,12 @@ function AddDocumentUtil() {
                             </label>
                         </div>
                     </div>
-                </fieldset> */}
+                </fieldset>
                 <fieldset className="row mb-3">
                     <div className="row mb-3">
                         <label className="col col-form-label">Séléctionner un fichier</label>
                         <div>
-                            <input type="file" className="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={selectFile}/>
+                            <input type="file" className="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
                         </div>
                     </div>
                 </fieldset>
@@ -112,4 +76,4 @@ function AddDocumentUtil() {
     )
 }
 
-export default AddDocumentUtil
+export default DepotDoc

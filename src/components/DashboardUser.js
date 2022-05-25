@@ -9,9 +9,9 @@ let Document = (props) => (
     <DocumentRowUser document={props.document} />
 );
 
-class DocumentsUsers extends Component {
-    constructor() {
-        super();
+class DashboardUser extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             data: [],
             loading: false,
@@ -23,6 +23,7 @@ class DocumentsUsers extends Component {
 
     componentDidMount(){
         this.init();
+        console.log("id : " +this.props.userId)
     }
 
     async init(){
@@ -106,4 +107,4 @@ class DocumentsUsers extends Component {
     }
 }
 
-export default DocumentsUsers
+export default DashboardUser

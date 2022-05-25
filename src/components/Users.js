@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Router } from 'react-router-dom';
 import { Loader } from "rimble-ui";
 import UserRow from './UserRow';
-import history from '../history'
 
 let User = (props) => (
     <UserRow user={props.user} />

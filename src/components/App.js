@@ -12,44 +12,55 @@ import AddUser from './AddUser';
 import Banner from './NavBar';
 import DocumentUtils from './DocumentUtils';
 import AddDocumentUtil from './AddDocumentUtil';
-import DocumentsUsers from './DocumentsUsers';
+import DashboardUser from './DashboardUser';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isConnected: false,
+      user: null,
     };
+    this.setUser = this.setUser.bind(this);
   }
 
   componentDidMount() {
-    this.init();
   }
 
-  async init() {
-    
+  setUser(newUser){
+    console.log("user : " + newUser.nomUser);
+    this.setState({user: newUser})
+    if(this.state.user.nomUser!==undefined){
+      this.setState({isConnected: true})
+      localStorage.clear();
+      localStorage.setItem("user", JSON.stringify(this.state.user));
+      window.location="/Dashboard"
+    } else {
+      alert("Utilisateur invalide");
+    }
   }
 
   render() {
     return (
       <div>
 
-        <Banner account={this.state.account}/>
+        <Banner />
 
         <Router history={history}>
-          {/* Default route to ActiveElections component */}
           <Route path="/" exact>
             <Redirect to="/Login"/>
           </Route>
 
-          {/* Route to Active election page */}
-          <Route path="/Login" exact component={() => <Login />}/>
+          <Route path="/Login" exact component={() => <Login/>}/>
+
+          <Route path="/Login" exact component={() => <Login setUser={this.setUser}/>}/>
           <Route path="/Dashboard" exact component={() => <Dashboard />}/>
           <Route path="/Depot" exact component={() => <DepotDoc />}/>
           <Route path="/Users" exact component={() => <Users />}/>
           <Route path="/AddUser" exact component={() => <AddUser />}/>
           <Route path="/Downloads" exact component={() => <DocumentUtils />}/>
           <Route path="/AddDocumentUtil" exact component={() => <AddDocumentUtil />}/>
-          <Route path="/DocumentsUsers" exact component={() => <DocumentsUsers />}/>
+          <Route path="/DocumentsUsers" exact component={() => <DashboardUser />}/>
         </Router>
       </div>
     )

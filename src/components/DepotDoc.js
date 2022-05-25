@@ -1,78 +1,98 @@
-import React from 'react'
+import React, { useState} from 'react'
+import UploadService from '../services/documentsService'
 
-function DepotDoc() {
+function DepotDoc(){
 
-    // const [nom, setNom]
+    const [selectedFiles, setSelectedFiles] = useState(undefined);
+    const [currentFile, setCurrentFile] = useState(undefined);
+    const [progress, setProgress] = useState(0);
+    const [message, setMessage] = useState("");
+    const [fileInfos, setFileInfos] = useState([]);
 
-    return (
-        <div className='container' style={{ width: "40%" }}>
-            <form>
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Nom</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" placeholder="Nom de l'utilisateur" required/>
-                    </div>
-                </div>
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Prenom</label>
-                    <div className="col-sm-10">
-                        <input type="text" className="form-control" placeholder="Prenom de l'utilisateur" required/>
-                    </div>
-                </div>
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Email</label>
-                    <div className="col-sm-10">
-                        <input type="email" className="form-control" placeholder="Email de l'utilisateur" required/>
-                    </div>
-                </div>
-                <div className="row mb-3">
-                    <label className="col-sm-2 col-form-label">Description</label>
-                    <div className="col-sm-10">
-                        <textarea
-                        type="text"
-                        required
-                        maxLength={250}
-                        className="form-control"
-                        placeholder="Description du document (max 250 caractères)"
-                        // onChange={onChangeDescription}
-                        />
-                    </div>
-                </div>
-                <fieldset className="row mb-3">
-                    <label className="col-form-label col-sm-2 pt-0">Radios</label>
-                    <div className="col-sm-10">
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1"/>
-                            <label className="form-check-label">
-                                First radio
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" />
-                            <label className="form-check-label" >
-                                Second radio
-                            </label>
-                        </div>
-                        <div className="form-check disabled">
-                            <input className="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" />
-                            <label className="form-check-label">
-                                Third disabled radio
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset className="row mb-3">
-                    <div className="row mb-3">
-                        <label className="col col-form-label">Séléctionner un fichier</label>
-                        <div>
-                            <input type="file" className="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
+    // componentDidMount() {
+    //     UploadService.getFiles().then((response) => {
+    //         this.setState({
+    //             fileInfos: response.data,
+    //         });
+    //     });
+    // }
+
+    const selectFile = (event) => {
+        setSelectedFiles(event.target.files);
+    }
+
+    const upload = () =>{
+        let currentFile = selectedFiles[0];
+        setProgress(0);
+        setCurrentFile(currentFile);
+
+        UploadService.upload(currentFile, (event) => {
+            setProgress(Math.round((100 * event.loaded) / event.total));
+        })
+            .then((response) => {
+                setMessage(response.data.message);
+                return UploadService.getFiles();
+            })
+            .then((files) => {
+                setFileInfos(files.data);
+            })
+            .catch(() => {
+                setProgress(0);
+                setMessage("Could not upload the file!");
+                setCurrentFile(undefined);
+            });
+        setSelectedFiles(undefined);
+    }
+
+        // const {
+        //     selectedFiles,
+        //     currentFile,
+        //     progress,
+        //     message,
+        //     fileInfos,
+        // } = this.state;
+        return (
+            <div>
+                {currentFile && (
+                    <div className="progress">
+                        <div
+                            className="progress-bar progress-bar-info progress-bar-striped"
+                            role="progressbar"
+                            aria-valuenow={progress}
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style={{ width: progress + "%" }}
+                        >
+                            {progress}%
                         </div>
                     </div>
-                </fieldset>
-                <button type="submit" className="btn btn-primary">submit</button>
-            </form>
-        </div>
-    )
+                )}
+                <label className="btn btn-default">
+                    <input type="file" onChange={selectFile} />
+                </label>
+                <button className="btn btn-success"
+                    disabled={!selectedFiles}
+                    onClick={upload}
+                >
+                    Upload
+                </button>
+                <div className="alert alert-light" role="alert">
+                    {message}
+                </div>
+                <div className="card">
+                    <div className="card-header">List of Files</div>
+                    <ul className="list-group list-group-flush">
+                        {fileInfos &&
+                            fileInfos.map((file, index) => (
+                                <li className="list-group-item" key={index}>
+                                    <a href={file.url}>{file.name}</a>
+                                </li>
+                            ))}
+                    </ul>
+                </div>
+            </div>
+        );
+
 }
 
 export default DepotDoc

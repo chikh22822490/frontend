@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import App from "./App";
 import Logo from '../assets/tenstep-logo.png'
 
 
@@ -103,7 +102,7 @@ class AddUser extends Component {
             </div>
 
             <div className="mb-3">
-              <label style={{ fontSize: "1.5rem" }}>Prenom</label>
+              <label style={{ fontSize: "1.5rem" }}>Prénom</label>
               <input
                 type="text"
                 required

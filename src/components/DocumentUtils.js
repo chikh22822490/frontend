@@ -4,6 +4,7 @@ import { Router } from 'react-router-dom';
 import { Loader } from "rimble-ui";
 import history from '../history'
 import DocuemntUtilsRow from './DocuemntUtilsRow';
+import UploadService from '../services/documentsService'
 
 let Document = (props) => (
     <DocuemntUtilsRow document={props.document} />
@@ -21,11 +22,11 @@ class DocumentUtils extends Component {
 
     loader = false;
 
-    componentDidMount(){
+    componentDidMount() {
         this.init();
     }
 
-    async init(){
+    async init() {
         await this.loadData();
     }
 
@@ -35,29 +36,37 @@ class DocumentUtils extends Component {
         let allDocuments = []
         let documentComponents = [], documentDetails = []
 
-        for (let i = 0; i < 5; i++) {
-            documentDetails[i]=[]
-            let document = allDocuments[i]
-            documentDetails[i].name = "name " +i//document[0];
-            documentDetails[i].description = "description " +i// document[1]
-            documentDetails[i].type = "type "+i
+        UploadService.getFiles().then((response) => {
+            allDocuments = response.data;
+            console.log(response.data)
+            console.log(" all : " + allDocuments[0].nomDocument);
 
-            documentComponents[i] = (
-                <Document
-                    key={i}
-                    document={documentDetails[i]}
-                />
-            );
-            console.log("name : " + documentDetails[i].name)
-        }
-        this.setState({ data: documentComponents, loading: false })
+            for (let i = 0; i < allDocuments.length; i++) {
+                console.log("test " + allDocuments.length)
+                documentDetails[i] = []
+                documentDetails[i].name = allDocuments[i].nomDocument;
+                documentDetails[i].description = allDocuments[i].descriptionDocument
+                documentDetails[i].type = allDocuments[i].categorieDocument
+                documentDetails[i].downloadLink = allDocuments[i].urlDocument
+    
+                documentComponents[i] = (
+                    <DocuemntUtilsRow
+                        key={i}
+                        document={documentDetails[i]}
+                    />
+                );
+                console.log("name : " + documentDetails[i].name)
+                console.log("test " + allDocuments.length)
+            }
+            this.setState({ data: documentComponents, loading: false })
+        });
     }
 
     render() {
         return (
             <div className="container">
 
-                {this.state.isAdmin ? (
+
                 <div>
                     <div style={{ float: "right", marginBottom: "10px" }}>
                         <img
@@ -66,20 +75,22 @@ class DocumentUtils extends Component {
                             src="https://img.icons8.com/color/50/000000/synchronize.png"
                             alt="refresh projects"
                         />
-                        <Router history={history}>
-                            <Link to="/AddDocumentUtil">
-                                <img
-                                    style={{ width: "25px", cursor: "pointer" }}
-                                    src="https://img.icons8.com/color/48/000000/plus-math.png"
-                                    alt="Add Project"
-                                />
-                            </Link>
-                        </Router>
-                    </div>    
-                </div> 
-                    ):(
-                    <div></div>
-                )}
+                        {this.state.isAdmin ? (
+                            <Router history={history}>
+                                <Link to="/AddDocumentUtil">
+                                    <img
+                                        style={{ width: "25px", cursor: "pointer" }}
+                                        src="https://img.icons8.com/color/48/000000/plus-math.png"
+                                        alt="Add Project"
+                                    />
+                                </Link>
+                            </Router>
+                        ) : (
+                            <div></div>
+                        )}
+
+                    </div>
+                </div>
 
                 <table className="table table-hover">
                     <thead>
@@ -90,14 +101,14 @@ class DocumentUtils extends Component {
                             <th style={{ width: "20%", textAlign: "left" }}>Titre</th>
                             <th style={{ width: "50%", textAlign: "left" }}>Description du document</th>
                             <th style={{ width: "10%", textAlign: "left" }}>Categorie</th>
-                            <th style={{ width: "20%", textAlign: "center" }}>Téléchargement</th>
+                            <th style={{ width: "20%", textAlign: "center" }}>Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {this.state.data}
                     </tbody>
-        
+
                 </table>
                 <center>{this.state.loading ? <Loader size="40px" /> : <></>}</center>
             </div>
