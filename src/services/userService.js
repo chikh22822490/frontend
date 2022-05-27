@@ -96,6 +96,34 @@ class userService {
         return http.delete("/user/deleteUser/"+id);
     }
 
+    verifyPassword(id, password){
+        let formData = new FormData();
+        formData.append("password", password)
+        return http.post("/user/verifyPassword/"+id, null, {
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*'
+            },
+            params: {
+                "password": password
+            }
+        })
+    }
+
+    passwordReset(id, password){
+        let formData = new FormData();
+        formData.append("password", password)
+        return http.put("/user/passwordReset/"+id+'?'+password, null, {
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*'
+            },
+            params: {
+                "password": password
+            }
+        })
+    }
+
 }
 
 export default new userService();

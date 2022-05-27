@@ -19,6 +19,7 @@ class Login extends Component {
 
     componentDidMount() {
         this.setState({ name: '', password: ''})
+        localStorage.setItem("user", null);
     }
 
     onChangeUsername(e) {
