@@ -20,12 +20,13 @@ function AddDocumentUtil() {
         setCategorie(event.target.value);
     }
 
-    const onSubmit = () =>{
+    const onSubmit = (e) =>{
+        e.preventDefault();
         let currentFile = selectedFiles[0];
 
         UploadService.upload(currentFile, descriprtion, categorie).then((response)=>{
-            console.log("response : " + response.data)
-          })
+            alert("response : " + response.data)
+        })
         setSelectedFiles(undefined);
     }
 

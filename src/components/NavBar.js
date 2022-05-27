@@ -7,7 +7,6 @@ import DropdownItem from 'react-bootstrap/DropdownItem';
 
 function Banner(props) {
 	const user = JSON.parse(localStorage.getItem("user"));
-	console.log(localStorage.getItem("user"))
 
 	const onDisconnect = () => {
 		localStorage.setItem("user", null);
@@ -25,7 +24,7 @@ function Banner(props) {
 					{user.isAdmin ? (
 						<ul className="navbar-nav">
 							<li className="nav-item ">
-								<a className="nav-link" href="/Dashboard" style={{ color: "#ffffff" }}>Dashboard</a>
+								<a className="nav-link" href="/Dashboard" style={{ color: "#ffffff" }}>Depots</a>
 							</li>
 							<li className="nav-item">
 								<a className="nav-link" href="/Users" style={{ color: "#ffffff" }}>Utilisateurs</a>
@@ -37,7 +36,7 @@ function Banner(props) {
 					) : (
 						<ul className="navbar-nav">
 							<li className="nav-item ">
-								<a className="nav-link" href="/Dashboard" style={{ color: "#ffffff" }}>Dashboard</a>
+								<a className="nav-link" href="/Dashboard" style={{ color: "#ffffff" }}>Depots</a>
 							</li>
 							<li className="nav-item">
 								<a className="nav-link" href="/Downloads" style={{ color: "#ffffff" }}>Téléchargements</a>

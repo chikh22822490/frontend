@@ -22,6 +22,9 @@ function DocumentRow(props) {
             <td style={{ width: "20%", textAlign: "center" }}>
                 <h6 id='candidateTitle'>{props.document.type}</h6>
             </td>
+            <td style={{ textAlign: "center" }}>
+                <h6 id='candidateTitle'>{props.document.date}</h6>
+            </td>
             <td style={{color:"white", textAlign: "center" }}>
                 {statut === "signed" ? (
                 <div>
@@ -45,7 +48,7 @@ function DocumentRow(props) {
                         </div>)}
                     </div>)}
             </td>
-            <td>
+            <td align='center'>
                 <DocumentUpdate docId={docId} statut={statut}/>
             </td>
             <td align='center'>

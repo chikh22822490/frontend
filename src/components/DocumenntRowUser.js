@@ -13,8 +13,11 @@ function DocumentRowUser(props) {
                     <b>{props.document.description}</b><br />
                 </font>
             </td>
-            <td style={{ width: "20%", textAlign: "left" }}>
+            <td style={{ textAlign: "center" }}>
                 <h6 id='candidateTitle'>{props.document.type}</h6>
+            </td>
+            <td style={{ textAlign: "center" }}>
+                <h6 id='candidateTitle'>{props.document.date}</h6>
             </td>
             <td style={{color:"white",  textAlign: "center"}}>
                 {statut === "signed" ? (

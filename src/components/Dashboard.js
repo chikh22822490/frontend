@@ -17,9 +17,9 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div>
+            <div >
                 <Banner />
-                <div className="container">
+                <div  style={{width:"70%", marginLeft:"15%", marginRight:"15%"}}>
                     {this.state.isAdmin ? (
                         <DashboardAdmin />
                     ) : (<div>

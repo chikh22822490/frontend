@@ -14,10 +14,11 @@ let Document = (props) => (
 class DocumentUtils extends Component {
     constructor() {
         super();
+        const user = JSON.parse(localStorage.getItem("user"))
         this.state = {
             data: [],
             loading: false,
-            isAdmin: true
+            isAdmin: user.isAdmin
         }
     }
 

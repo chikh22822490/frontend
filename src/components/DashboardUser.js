@@ -48,6 +48,8 @@ class DashboardUser extends Component {
                 documentDetails[i].type = allDocuments[i].documentDepot.categorieDocument
                 documentDetails[i].statut = allDocuments[i].statut
                 documentDetails[i].download = allDocuments[i].documentDepot.urlDocument
+                documentDetails[i].date = allDocuments[i].depotDate
+                console.log("date : "+ allDocuments[i].depotDate)
     
                 documentComponents[i] = (
                     <Document
@@ -64,41 +66,36 @@ class DashboardUser extends Component {
         return (
             <div className="container">
 
-                {this.state.isAdmin ? (
-                <div>
-                    <div style={{ float: "right", marginBottom: "10px" }}>
-                        <img
-                            style={{ width: "25px", marginRight: "20px", cursor: "pointer" }}
-                            onClick={this.loadData}
-                            src="https://img.icons8.com/color/50/000000/synchronize.png"
-                            alt="refresh projects"
-                        />
-                        <Router history={history}>
-                            <Link to="/Depot">
-                                <img
-                                    style={{ width: "25px", cursor: "pointer" }}
-                                    src="https://img.icons8.com/color/48/000000/plus-math.png"
-                                    alt="Add Project"
-                                />
-                            </Link>
-                        </Router>
-                    </div>    
-                </div> 
-                    ):(
-                    <div></div>
-                )}
+                <div style={{ float: "right", marginBottom: "10px" }}>
+                    <img
+                        style={{ width: "25px", marginRight: "20px", cursor: "pointer" }}
+                        onClick={this.loadData}
+                        src="https://img.icons8.com/color/50/000000/synchronize.png"
+                        alt="refresh projects"
+                    />
+                    <Router history={history}>
+                        <Link to="/Depot">
+                            <img
+                                style={{ width: "25px", cursor: "pointer" }}
+                                src="https://img.icons8.com/color/48/000000/plus-math.png"
+                                alt="Add Project"
+                            />
+                        </Link>
+                    </Router>
+                </div>
 
                 <table className="table table-hover">
                     <thead>
                         <tr style={{ width: "100%", height: "auto", textAlign: "center" }}>
-                            <th colSpan={5}>Listes des documents de l'utilisateur</th>
+                            <th colSpan={6}>Listes des documents de l'utilisateur</th>
                         </tr>
                         <tr>
-                            <th style={{ width: "20%", textAlign: "left" }}>Titre</th>
-                            <th style={{ width: "50%", textAlign: "left" }}>Description du document</th>
-                            <th style={{ width: "10%", textAlign: "left" }}>Categorie</th>
-                            <th style={{ width: "20%", textAlign: "center" }}>Statut</th>
-                            <th style={{ width: "20%", textAlign: "center" }}>Téléchargement</th>
+                            <th style={{ width: "15%", textAlign: "left" }}>Titre</th>
+                            <th style={{ width: "40%", textAlign: "left" }}>Description du document</th>
+                            <th style={{ width: "15%", textAlign: "center" }}>Categorie</th>
+                            <th style={{ width: "15%", textAlign: "center" }}>Date</th>
+                            <th style={{ width: "10%", textAlign: "center" }}>Statut</th>
+                            <th style={{ width: "5%", textAlign: "center" }}>Téléchargement</th>
                         </tr>
                     </thead>
 

@@ -50,6 +50,7 @@ export default class DashboardAdmin extends Component {
                 documentDetails[i].type = allDocuments[i].documentDepot.categorieDocument
                 documentDetails[i].statut = allDocuments[i].statut
                 documentDetails[i].download = allDocuments[i].documentDepot.urlDocument
+                documentDetails[i].date = allDocuments[i].depotDate
     
                 documentComponents[i] = (
                     <Document
@@ -87,14 +88,15 @@ export default class DashboardAdmin extends Component {
                 <table className="table table-hover">
                     <thead>
                         <tr style={{ width: "100%", height: "auto", textAlign: "center" }}>
-                            <th colSpan={7}>Listes des documents</th>
+                            <th colSpan={8}>Listes des documents</th>
                         </tr>
                         <tr>
-                            <th style={{ width: "15%", textAlign: "left" }}>Titre</th>
-                            <th style={{ width: "40%", textAlign: "left" }}>Description du document</th>
-                            <th style={{ width: "20%", textAlign: "left" }}>Proprietaire</th>
-                            <th style={{ width: "10%", textAlign: "center" }}>Categorie</th>
-                            <th style={{ width: "5%", textAlign: "center" }}>Statut</th>
+                            <th style={{ width: "10%", textAlign: "left" }}>Titre</th>
+                            <th style={{ width: "30%", textAlign: "left" }}>Description du document</th>
+                            <th style={{ width: "15%", textAlign: "left" }}>Proprietaire</th>
+                            <th style={{ width: "5%", textAlign: "center" }}>Categorie</th>
+                            <th style={{ width: "15%", textAlign: "center" }}>Date</th>
+                            <th style={{ width: "10%", textAlign: "center" }}>Statut</th>
                             <th style={{ width: "5%", textAlign: "center" }}>Editer</th>
                             <th style={{ width: "5%", textAlign: "center" }}>Télécharger</th>
                         </tr>
