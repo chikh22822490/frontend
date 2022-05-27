@@ -4,6 +4,7 @@ import { Router } from 'react-router-dom';
 import { Loader } from "rimble-ui";
 import DocumentRow from './DocumentRow';
 import history from '../history'
+import adminService from '../services/adminService'
 
 let Document = (props) => (
     <DocumentRow document={props.document} />
@@ -37,23 +38,29 @@ export default class DashboardAdmin extends Component {
         let allDocuments = []
         let documentComponents = [], documentDetails = []
 
-        for (let i = 0; i < 5; i++) {
-            documentDetails[i] = []
-            let document = allDocuments[i]
-            documentDetails[i].name = "name " + i//document[0];
-            documentDetails[i].description = "description " + i// document[1]
-            documentDetails[i].sender = "exemple@mail.com " + i
-            documentDetails[i].type = "type " + i
-            documentDetails[i].statut = "En attente"//document[2]
-
-            documentComponents[i] = (
-                <Document
-                    key={i}
-                    document={documentDetails[i]}
-                />
-            );
-        }
-        this.setState({ data: documentComponents, loading: false })
+        adminService.getAllDepots().then((response)=>{
+            allDocuments = response.data;
+            // console.log("response : " + allDocuments[3].userDepots.nomUser) 
+            for (let i = 0; i < allDocuments.length; i++) {
+                documentDetails[i] = []
+                documentDetails[i].id = allDocuments[i].depotId;
+                documentDetails[i].name = allDocuments[i].documentDepot.nomDocument;
+                documentDetails[i].description =  allDocuments[i].documentDepot.descriptionDocument
+                documentDetails[i].sender = allDocuments[i].userDepots.emailUser
+                documentDetails[i].type = allDocuments[i].documentDepot.categorieDocument
+                documentDetails[i].statut = allDocuments[i].statut
+                documentDetails[i].download = allDocuments[i].documentDepot.urlDocument
+    
+                documentComponents[i] = (
+                    <Document
+                        key={i}
+                        document={documentDetails[i]}
+                    />
+                );
+            }
+            this.setState({ data: documentComponents, loading: false })
+        })
+        
     }
 
     render() {

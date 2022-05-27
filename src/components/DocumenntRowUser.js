@@ -2,6 +2,7 @@ import React from 'react'
 
 function DocumentRowUser(props) {
     const statut = props.document.statut
+
   return (
     <tr>
             <td>
@@ -19,7 +20,7 @@ function DocumentRowUser(props) {
                 {statut === "signed" ? (
                 <div>
                     <font className="text badge bg-success" size="10">
-                    <h6>{props.document.statut}</h6>
+                    <h6>Signé</h6>
                 </font>
                 </div>
                 ) : (
@@ -27,13 +28,13 @@ function DocumentRowUser(props) {
                         {statut === "refused" ? (
                         <div>
                             <font className="text badge bg-danger" size="10">
-                                <h6>{props.document.statut}</h6>
+                                <h6>Réfusé</h6>
                             </font>
                         </div>
                         ) : (
                         <div>
                             <font className="text badge bg-info" size="10">
-                                <h6>{props.document.statut}</h6>
+                                <h6>En attente</h6>
                             </font>
                         </div>)}
                     </div>)}

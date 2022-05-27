@@ -3,7 +3,6 @@ import React from 'react'
 function DocuemntUtilsRow(props) {
 
     const isAdmin = true;
-    console.log("name row : " + props.document.name);
 
     return (
         <tr>

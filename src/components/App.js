@@ -18,7 +18,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isConnected: false,
       user: null,
     };
     this.setUser = this.setUser.bind(this);
@@ -31,9 +30,9 @@ class App extends React.Component {
     console.log("user : " + newUser.nomUser);
     this.setState({user: newUser})
     if(this.state.user.nomUser!==undefined){
-      this.setState({isConnected: true})
       localStorage.clear();
       localStorage.setItem("user", JSON.stringify(this.state.user));
+      localStorage.setItem("isConnected", true);
       window.location="/Dashboard"
     } else {
       alert("Utilisateur invalide");
@@ -43,26 +42,23 @@ class App extends React.Component {
   render() {
     return (
       <div>
+            {/* <Banner />  */}
+            <Router history={history}>
+              <Route path="/" exact>
+                <Redirect to="/Login"/>
+              </Route>
 
-        <Banner />
-
-        <Router history={history}>
-          <Route path="/" exact>
-            <Redirect to="/Login"/>
-          </Route>
-
-          <Route path="/Login" exact component={() => <Login/>}/>
-
-          <Route path="/Login" exact component={() => <Login setUser={this.setUser}/>}/>
-          <Route path="/Dashboard" exact component={() => <Dashboard />}/>
-          <Route path="/Depot" exact component={() => <DepotDoc />}/>
-          <Route path="/Users" exact component={() => <Users />}/>
-          <Route path="/AddUser" exact component={() => <AddUser />}/>
-          <Route path="/Downloads" exact component={() => <DocumentUtils />}/>
-          <Route path="/AddDocumentUtil" exact component={() => <AddDocumentUtil />}/>
-          <Route path="/DocumentsUsers" exact component={() => <DashboardUser />}/>
-        </Router>
-      </div>
+              <Route path="/Login" exact component={() => <Login setUser={this.setUser}/>}/>
+              <Route path="/Dashboard" exact component={() => <Dashboard />}/>
+              <Route path="/Depot" exact component={() => <DepotDoc />}/>
+              <Route path="/Users" exact component={() => <Users />}/>
+              <Route path="/AddUser" exact component={() => <AddUser />}/>
+              <Route path="/Downloads" exact component={() => <DocumentUtils />}/>
+              <Route path="/AddDocumentUtil" exact component={() => <AddDocumentUtil />}/>
+              <Route path="/DocumentsUsers" exact component={() => <DashboardUser />}/>
+            </Router>
+          </div>
+        
     )
   }
 }

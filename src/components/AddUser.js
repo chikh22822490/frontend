@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Logo from '../assets/tenstep-logo.png'
+import userService from "../services/userService";
 
 
 class AddUser extends Component {
@@ -9,6 +10,7 @@ class AddUser extends Component {
     this.onChangeNom = this.onChangeNom.bind(this);
     this.onChangePrenom = this.onChangePrenom.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -18,8 +20,9 @@ class AddUser extends Component {
       name: "",
       prenom: "",
       email: "",
+      username: "",
       password: "",
-      image: ""
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png"
     };
   }
 
@@ -31,6 +34,12 @@ class AddUser extends Component {
   onChangeNom(e) {
     this.setState({
       name: e.target.value,
+    });
+  }
+
+  onChangeUsername(e) {
+    this.setState({
+      username: e.target.value,
     });
   }
 
@@ -70,11 +79,13 @@ class AddUser extends Component {
         name: this.state.name,
         prenom: this.state.prenom,
         email: this.state.email,
+        username: this.state.username,
         password: this.state.password,
-        image: this.state.image
+        image: this.state.image,
+        isAdmin: false
       };
 
-      // fetch fonction goes here
+      userService.signup(this.state.name,this.state.prenom,this.state.email,this.state.username,this.state.password,this.state.image);
 
       alert("Ajouté");
       window.location = "/Login";
@@ -121,6 +132,17 @@ class AddUser extends Component {
                 placeholder="Email de l'utilisateur"
                 onChange={this.onChangeEmail}
               />
+            </div>
+
+            <div className="mb-3">
+              <label style={{ fontSize: "1.5rem" }}>Username</label>
+              <input
+                type="text"
+                required
+                className="form-control"
+                placeholder="Prenom de l'utilisateur"
+                onChange={this.onChangeUsername}
+              ></input>
             </div>
 
             <div className="mb-3">

@@ -23,6 +23,10 @@ class UploadFilesService {
   getFiles() {
     return http.get("/documentUtils/getAll");
   }
+
+  getFilesByUser(id){
+    return http.get("/depot/getUserDepot/"+id)
+  }
 }
 
 export default new UploadFilesService();

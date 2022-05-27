@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import DashboardUser from './DashboardUser'
 import DashboardAdmin from './DashboardAdmin';
+import Banner from './NavBar';
 
 class Dashboard extends Component {
     constructor() {
@@ -16,12 +17,15 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div className="container">
-                {this.state.isAdmin ? (
-                    <DashboardAdmin />
-                ) : (<div>
-                    <DashboardUser userId={this.state.userId}/>
-                </div>)}
+            <div>
+                <Banner />
+                <div className="container">
+                    {this.state.isAdmin ? (
+                        <DashboardAdmin />
+                    ) : (<div>
+                        <DashboardUser userId={this.state.userId}/>
+                    </div>)}
+                </div>
             </div>
         )
     }

@@ -8,16 +8,17 @@ class Login extends Component {
         this.state = {
             name: '',
             password: '',
-            isConnected: false,
             user: undefined,
         }
+        // localStorage.setItem("user", null);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        
     }
 
     componentDidMount() {
-        this.setState({ name: '', password: '', connected: false })
+        this.setState({ name: '', password: ''})
     }
 
     onChangeUsername(e) {
@@ -28,10 +29,10 @@ class Login extends Component {
         this.setState({ password: e.target.value, });
     }
 
-    onSubmit(e) {
+    async onSubmit(e) {
         e.preventDefault();
 
-        userService.login(this.state.name, this.state.password).then((response) => {
+        await userService.login(this.state.name, this.state.password).then((response) => {
             this.props.setUser(response.data);
         })
     }

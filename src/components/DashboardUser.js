@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Router } from 'react-router-dom';
 import { Loader } from "rimble-ui";
 import history from '../history';
+import documentsService from '../services/documentsService';
 import DocumentRowUser from './DocumenntRowUser';
 
 let Document = (props) => (
@@ -12,10 +13,12 @@ let Document = (props) => (
 class DashboardUser extends Component {
     constructor(props) {
         super(props);
+        const userLocal = JSON.parse(localStorage.getItem("user"));
         this.state = {
             data: [],
             loading: false,
-            isAdmin: true
+            isAdmin: userLocal.isAdmin,
+            userId: userLocal.userId
         }
     }
 
@@ -23,7 +26,6 @@ class DashboardUser extends Component {
 
     componentDidMount(){
         this.init();
-        console.log("id : " +this.props.userId)
     }
 
     async init(){
@@ -36,22 +38,26 @@ class DashboardUser extends Component {
         let allDocuments = []
         let documentComponents = [], documentDetails = []
 
-        for (let i = 0; i < 5; i++) {
-            documentDetails[i]=[]
-            let document = allDocuments[i]
-            documentDetails[i].name = "name " +i//document[0];
-            documentDetails[i].description = "description description description description description " +i// document[1]
-            documentDetails[i].type = "type "+i
-            documentDetails[i].statut = "waiting"
-
-            documentComponents[i] = (
-                <Document
-                    key={i}
-                    document={documentDetails[i]}
-                />
-            );
-        }
-        this.setState({ data: documentComponents, loading: false })
+        documentsService.getFilesByUser(this.state.userId).then((response)=>{
+            allDocuments = response.data;
+            for (let i = 0; i < allDocuments.length; i++) {
+                documentDetails[i]=[]
+                let document = allDocuments[i]
+                documentDetails[i].name = allDocuments[i].documentDepot.nomDocument;
+                documentDetails[i].description = allDocuments[i].documentDepot.descriptionDocument
+                documentDetails[i].type = allDocuments[i].documentDepot.categorieDocument
+                documentDetails[i].statut = allDocuments[i].statut
+                documentDetails[i].download = allDocuments[i].documentDepot.urlDocument
+    
+                documentComponents[i] = (
+                    <Document
+                        key={i}
+                        document={documentDetails[i]}
+                    />
+                );
+            }
+            this.setState({ data: documentComponents, loading: false })
+        })
     }
 
     render() {

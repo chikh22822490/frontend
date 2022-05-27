@@ -1,20 +1,44 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'rimble-ui'
+import adminService from '../services/adminService'
+import userService from '../services/userService'
 
 function UpdateUser(props) {
 
-    const [isOpen, setIsOpen] = useState(false)
-    const [nom, setNom] = useState(props.user[1])
-    const [prenom, setPrenom] = useState(props.user[2])
-    const [email, setEmail] = useState(props.user[3])
-    const [image, setImage] = useState(props.user[4])
+    let [isOpen, setIsOpen] = useState(false)
+    let [userId, setUserId] = useState(props.user[0])
+    let [nom, setNom] = useState(props.user[1])
+    let [prenom, setPrenom] = useState(props.user[2])
+    let [email, setEmail] = useState(props.user[3])
+    let [username, setUsername] = useState(props.user[4])
+    let [image, setImage] = useState(props.user[5])
+    let [isAdmin, setIsAdmin] = useState(props.user[6])
+
+
+    const setAdmin = (e) => {
+        adminService.setAdmin(userId)
+        alert("Modifié " + nom)
+        window.location = "/Users";
+    }
+
+    const removeAdmin = (e) => {
+        const userLocal = JSON.parse(localStorage.getItem("user"));
+        adminService.removeAdmin(userId)
+        alert("Modifié " + nom)
+        if(userId=== userLocal.userId){
+            localStorage.setItem("isConnected", false)
+            window.location = "/Login";
+        }
+        else 
+            window.location = "/Users";
+    }
 
     const onChangeNom = (e) => {
         setNom(e.target.value)
     }
 
     const onChangePrenom = (e) => {
-        setPrenom(e.tager.value)
+        setPrenom(e.target.value)
     }
 
     const onChangeEmail = (e) => {
@@ -37,16 +61,9 @@ function UpdateUser(props) {
     };
 
     const onSubmit = async (e) => {
-        const userDetails = {
-            username: nom,
-            prenom: prenom,
-            email: email,
-            image: image
-        };
-
-        // post fetch hne
-
-        alert("Modifié " + userDetails[1])
+        userService.modifyUser(userId, nom, prenom, email, username, image);
+        alert("Modifié " + nom)
+        window.location = "/Users";
     }
 
     return (
@@ -85,7 +102,7 @@ function UpdateUser(props) {
                                 required
                                 className="form-control"
                                 placeholder="Nom de l'utilisateur"
-                                defaultValue={props.user[1]}
+                                defaultValue={nom}
                                 onChange={onChangeNom}
                             />
                         </div>
@@ -97,7 +114,7 @@ function UpdateUser(props) {
                                 required
                                 className="form-control"
                                 placeholder="Prenom de l'utilisateur"
-                                defaultValue={props.user[2]}
+                                defaultValue={prenom}
                                 onChange={onChangePrenom}
                             ></textarea>
                         </div>
@@ -109,7 +126,19 @@ function UpdateUser(props) {
                                 required
                                 className="form-control"
                                 placeholder="Email de l'utilisateur"
-                                defaultValue={props.user[3]}
+                                defaultValue={email}
+                                onChange={onChangeEmail}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label>Username</label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                placeholder="Username"
+                                defaultValue={username}
                                 onChange={onChangeEmail}
                             />
                         </div>
@@ -121,25 +150,64 @@ function UpdateUser(props) {
                                 required
                                 className="form-control"
                                 placeholder="URL de l'image de l'utilisateur"
-                                defaultValue={props.user[4]}
+                                defaultValue={image}
                                 onChange={onChangeImage}
                             />
                         </div>
 
                         <br />
 
-                        <div style={{display:"flex", justifyContent: "center"}}>
+                        <div className='btn-group' style={{ display: "flex", justifyContent: "center" }}>
                             <button
-                                className="btn btn-success grid-item"
-                                style={{ width: 100 }}
+                                className="btn btn-success"
+                                style={{ width: "30%" }}
                                 type="submit"
                             >
                                 Modifier
                             </button>
                         </div>
-
                         <br />
                     </form>
+                    
+                        {/* {!isAdmin ? (
+                        
+                            ):(
+                                <div className='btn-group' style={{ display: "flex", justifyContent: "space-evenly" }}>
+                                <button
+                                    className="btn btn-primary"
+                                    style={{ width: 100 }}
+                                    onClick={setAdmin}
+                                >
+                                    Set Admin
+                                </button>
+                                <button
+                                className="btn btn-warning"
+                                style={{ width: 100 }}
+                                onClick={removeAdmin}
+                            >
+                                Remove Admin
+                            </button>
+                            </div>)} */}
+                            <div className='btn-group' style={{ display: "flex", justifyContent: "space-evenly" }}>
+                            <button
+                            disabled={isAdmin}
+                                className="btn btn-primary"
+                                style={{ width: 100 }}
+                                onClick={setAdmin}
+                            >
+                                Set Admin
+                            </button>
+                            <button
+                            disabled={!isAdmin}
+                            className="btn btn-warning"
+                            style={{ width: 100 }}
+                            onClick={removeAdmin}
+                        >
+                            Remove Admin
+                        </button>
+                        </div>
+                        
+                        <br />
                 </div>
             </Modal>
         </div>

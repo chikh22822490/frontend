@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Box, Flex, Modal, Button, Card, Radio } from "rimble-ui";
+import adminService from "../services/adminService";
 
 function DocumentUpdate(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [statut, setStatut] = useState('waiting');
   const [isChanged, setIsChanged] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState(undefined);
+
+  const selectFile = (event) => {
+    setIsChanged(true)
+    setSelectedFiles(event.target.files);
+}
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -17,7 +24,12 @@ function DocumentUpdate(props) {
   };
 
   const statutUpdate = async () => {
-    //fetch goes here
+    if(statut==='refused'){
+      adminService.refuseDepot(props.docId)
+    } else {
+      let currentFile = selectedFiles[0];
+      adminService.signDepot(props.docId, currentFile)
+    }
 
     alert("modifié : " + statut)
     window.location = "/Dashboard";
@@ -33,7 +45,7 @@ function DocumentUpdate(props) {
         label={"Signé"}
         my={2}
         value={"signed"}
-        onClick={()=>{setStatut('signed');console.log("click " + statut)}}
+        onClick={()=>{setStatut('signed')}}
       />
     </div>
   );
@@ -82,7 +94,7 @@ function DocumentUpdate(props) {
                   <div className="row mb-3">
                     <label className="col col-form-label">Séléctionner un fichier</label>
                     <div>
-                      <input type="file" className="form-control" required onChange={()=>{setIsChanged(true)}} />
+                      <input type="file" className="form-control" required  onChange={selectFile} />
                     </div>
                   </div>
                 </fieldset>
