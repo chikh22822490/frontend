@@ -37,6 +37,10 @@ function UpdateSelf(props) {
 
     const onSubmit = async (e) => {
         userService.modifyUser(id, nom, prenom, email, username, image);
+        user.nomUser=nom;
+        user.prenomUser=prenom;
+        user.emailUser=email;
+        user.username=username;
         user.imageUser=image;
         localStorage.setItem("user", JSON.stringify(user))
         alert("Modifié " + nom)

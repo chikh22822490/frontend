@@ -6,7 +6,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            username: '',
             password: '',
             user: undefined,
         }
@@ -18,12 +18,12 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.setState({ name: '', password: ''})
+        this.setState({ username: '', password: ''})
         localStorage.setItem("user", null);
     }
 
     onChangeUsername(e) {
-        this.setState({ name: e.target.value, });
+        this.setState({ username: e.target.value, });
     }
 
     onChangePassword(e) {
@@ -33,8 +33,9 @@ class Login extends Component {
     async onSubmit(e) {
         e.preventDefault();
 
-        await userService.login(this.state.name, this.state.password).then((response) => {
+        await userService.login(this.state.username, this.state.password).then((response) => {
             this.props.setUser(response.data);
+            console.log("res : "+response.data)
         })
     }
 
@@ -45,7 +46,7 @@ class Login extends Component {
                     <img src={Logo} alt="logo" />
                     <form onSubmit={(e) => { this.onSubmit(e) }} style={{ marginTop: "10%" }}>
                         <div className="mb-3">
-                            <label className="form-label" style={{ fontSize: "1.5rem" }}>Email</label>
+                            <label className="form-label" style={{ fontSize: "1.5rem" }}>Username</label>
                             <input type="text" className="form-control" placeholder='Votre adress mail' required onChange={(e) => this.onChangeUsername(e)} />
                         </div>
                         <div className="mb-3">
