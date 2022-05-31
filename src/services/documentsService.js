@@ -27,6 +27,10 @@ class UploadFilesService {
   getFilesByUser(id){
     return http.get("/depot/getUserDepot/"+id)
   }
+
+  deleteFileUtil(id){
+    return http.delete("/documentUtils/deleteFile/"+id)
+  }
 }
 
 export default new UploadFilesService();

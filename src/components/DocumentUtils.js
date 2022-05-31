@@ -43,6 +43,7 @@ class DocumentUtils extends Component {
 
             for (let i = 0; i < allDocuments.length; i++) {
                 documentDetails[i] = []
+                documentDetails[i].id =  allDocuments[i].documentId;
                 documentDetails[i].name = allDocuments[i].nomDocument;
                 documentDetails[i].description = allDocuments[i].descriptionDocument
                 documentDetails[i].type = allDocuments[i].categorieDocument
